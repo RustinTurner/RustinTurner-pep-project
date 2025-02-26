@@ -11,4 +11,14 @@ public class AccountService {
         accountDAO = new AccountDAO();
     }
 
+    public Account login(Account user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'login'");
+    }
+
+    public Account register(Account user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'register'");
+    }
+
 }

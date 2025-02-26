@@ -42,9 +42,4 @@ public class MessageService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateMessage'");
     }
-
-    public Account login(Account user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
-    }
 }

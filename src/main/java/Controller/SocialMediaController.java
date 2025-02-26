@@ -119,7 +119,7 @@ public class SocialMediaController {
     private void loginHandler(Context ctx) throws JsonMappingException, JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
         Account user = map.readValue(ctx.body(), Account.class);
-        Account match = messageService.login(user);
+        Account match = accountService.login(user);
         if(match != null){
             ctx.json(match);
             ctx.status(200);
@@ -129,6 +129,18 @@ public class SocialMediaController {
         }
     }
 
-    
+    private void registerHandler(Context ctx) throws JsonMappingException, JsonProcessingException{
+        ObjectMapper map = new ObjectMapper();
+        Account user = map.readValue(ctx.body(), Account.class);
+        Account success = accountService.register(user);
+        if(success != null){
+            ctx.json(success);
+            ctx.status(200);
+        }
+        else{
+            ctx.status(400);
+        }
+
+    }
 
 }
