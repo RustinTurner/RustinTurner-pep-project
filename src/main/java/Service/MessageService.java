@@ -1,45 +1,48 @@
 package Service;
 
 import java.util.List;
+
+import DAO.AccountDAO;
 import DAO.MessageDAO;
-import Model.Account;
 import Model.Message;
 
 public class MessageService {
 
     private MessageDAO messageDAO;
+    private AccountDAO accountDAO;
 
     public MessageService(){
         messageDAO = new MessageDAO();
     }
 
     public Message createMessage(Message message) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createMessage'");
+        if(message.getMessage_text() != null && message.getMessage_text().length() > 255 && accountDAO.userExists(message.getPosted_by())){
+            return messageDAO.createMessage(message);
+        }
+        else{
+            return null;
+        }
     }
 
-    public Message deleteMessage(int int1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteMessage'");
+    public Message deleteMessage(int id) {
+        Message deleted = messageDAO.getMessage(id);
+        messageDAO.deleteMessage(id);
+        return deleted;
     }
 
-    public List<Message> getAllMessagesFromUser(int int1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllMessagesFromUser'");
+    public List<Message> getAllMessagesFromUser(int id) {
+        return messageDAO.getAllMessagesFromUser(id);
     }
 
     public List<Message> getAllMessages() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllMessages'");
+        return messageDAO.getAllMessages();
     }
 
-    public Message getMessage(int int1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMessage'");
+    public Message getMessage(int id) {
+        return messageDAO.getMessage(id);
     }
 
-    public Message updateMessage(int int1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateMessage'");
+    public Message updateMessage(int id) {
+        return messageDAO.updateMessage(id);
     }
 }

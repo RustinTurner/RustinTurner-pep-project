@@ -12,13 +12,11 @@ public class AccountService {
     }
 
     public Account login(Account user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+        return accountDAO.login(user);
     }
 
     public Account register(Account user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
+        return accountDAO.register(user);
     }
 
 }
