@@ -16,7 +16,7 @@ public class MessageDAO {
     public Message createMessage(Message message) {
         Connection con = ConnectionUtil.getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?,?,?);", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, message.getPosted_by());
             ps.setString(2, message.getMessage_text());
             ps.setLong(3, message.getTime_posted_epoch());
@@ -35,10 +35,9 @@ public class MessageDAO {
     public void deleteMessage(int id) {
         Connection con = ConnectionUtil.getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM message WHERE message_id = ?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM message WHERE message_id = ?;");
             ps.setInt(1, id);
             ps.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,7 +47,7 @@ public class MessageDAO {
         Connection con = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM message WHERE posted_by = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM message WHERE posted_by = ?;");
             ps.setInt(1, id);
             ResultSet rs = ps. executeQuery();
             while(rs.next()){
@@ -66,7 +65,7 @@ public class MessageDAO {
         Connection con = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM message");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM message;");
             ResultSet rs = ps. executeQuery();
             while(rs.next()){
                 Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
@@ -82,7 +81,7 @@ public class MessageDAO {
     public Message getMessage(int id) {
         Connection con = ConnectionUtil.getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM message WHERE message_id = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM message WHERE message_id = ?;");
             ps.setInt(1, id);
             ResultSet rs = ps. executeQuery();
             while(rs.next()){
@@ -95,9 +94,16 @@ public class MessageDAO {
         return null;
     }
 
-    public Message updateMessage(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateMessage'");
+    public Message updateMessage(int id, Message message) {
+        Connection con = ConnectionUtil.getConnection();
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE message SET posted_by = ?, message_text = ?, time_posted_epoch = ? WHERE message_id = ?;");
+            ps.executeUpdate();
+            return message;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
 }

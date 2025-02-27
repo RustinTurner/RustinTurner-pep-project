@@ -14,7 +14,7 @@ public class AccountDAO {
         throw new UnsupportedOperationException("Unimplemented method 'register'");
     }
 
-    public boolean userExists(int posted_by) {
+    public boolean userExists(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'userExists'");
     }
