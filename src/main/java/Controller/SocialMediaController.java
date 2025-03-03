@@ -121,6 +121,15 @@ public class SocialMediaController {
     private void loginHandler(Context ctx) throws JsonMappingException, JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
         Account user = map.readValue(ctx.body(), Account.class);
+        System.out.println(user);        
+        try {
+            Account match = accountService.login(user);
+            ctx.json(match);
+            ctx.status(200);
+        } catch (Exception e) {
+            ctx.status(401);
+        }
+        /*
         Account match = accountService.login(user);
         if(match != null){
             ctx.json(match);
@@ -129,6 +138,7 @@ public class SocialMediaController {
         else{
             ctx.status(401);
         }
+        */
     }
 
     private void registerHandler(Context ctx) throws JsonMappingException, JsonProcessingException{

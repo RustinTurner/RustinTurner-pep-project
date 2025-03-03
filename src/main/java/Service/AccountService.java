@@ -12,6 +12,7 @@ public class AccountService {
     }
 
     public Account login(Account user) {
+        System.out.println(user);     
         return accountDAO.login(user);
     }
 
