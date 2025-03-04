@@ -17,7 +17,11 @@ public class AccountService {
     }
 
     public Account register(Account user) {
-        return accountDAO.register(user);
+        if(user.getUsername() == "" || user.getPassword().length() < 4){
+            return null;
+        }else{
+            return accountDAO.register(user);
+        }
     }
 
 }

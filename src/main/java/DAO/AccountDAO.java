@@ -18,8 +18,11 @@ public class AccountDAO {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ResultSet rs = ps.executeQuery();
-            Account account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
-            return account;   
+            if(rs.next()){
+                Account account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+                System.out.println(account);
+                return account;   
+                }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,5 +63,10 @@ public class AccountDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean usernameExists() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'usernameExists'");
     }    
 }

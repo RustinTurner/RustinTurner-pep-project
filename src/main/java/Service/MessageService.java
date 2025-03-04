@@ -13,11 +13,12 @@ public class MessageService {
 
     public MessageService(){
         messageDAO = new MessageDAO();
+        accountDAO = new AccountDAO();
     }
 
     public Message createMessage(Message message) {
         System.out.println("!");
-        if(message.getMessage_text() != null && message.getMessage_text().length() < 255 && accountDAO.userExists(message.getPosted_by())){
+        if(message.getMessage_text() != "" && message.getMessage_text().length() < 255 && accountDAO.userExists(message.getPosted_by())){
             return messageDAO.createMessage(message);
         }
         else{
@@ -44,8 +45,10 @@ public class MessageService {
     }
 
     public Message updateMessage(int id, Message message) {
-        if(message.getMessage_text() != null && message.getMessage_text().length() > 255 && messageDAO.getMessage(id) != null){
-            return messageDAO.updateMessage(id, message);
+        if(message.getMessage_text() != "" && message.getMessage_text().length() < 255 && messageDAO.getMessage(id) != null){
+            System.out.println(message);
+            messageDAO.updateMessage(id, message);
+            return messageDAO.getMessage(id);
         }
         else{
             return null;

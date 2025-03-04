@@ -19,9 +19,13 @@ import io.javalin.http.Context;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
-
     AccountService accountService;
     MessageService messageService;
+
+    public SocialMediaController(){
+        this.accountService = new AccountService();
+        this.messageService = new MessageService();
+    }
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
      * suite must receive a Javalin object from this method.
@@ -132,14 +136,6 @@ public class SocialMediaController {
         ObjectMapper map = new ObjectMapper();
         Account user = map.readValue(ctx.body(), Account.class);
         System.out.println(user);        
-        try {
-            Account match = accountService.login(user);
-            ctx.json(match);
-            ctx.status(200);
-        } catch (Exception e) {
-            ctx.status(401);
-        }
-        /*
         Account match = accountService.login(user);
         if(match != null){
             ctx.json(match);
@@ -148,7 +144,7 @@ public class SocialMediaController {
         else{
             ctx.status(401);
         }
-        */
+        
     }
 
     private void registerHandler(Context ctx) throws JsonMappingException, JsonProcessingException{

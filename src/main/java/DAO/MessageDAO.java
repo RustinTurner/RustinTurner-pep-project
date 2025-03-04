@@ -94,16 +94,16 @@ public class MessageDAO {
         return null;
     }
 
-    public Message updateMessage(int id, Message message) {
+    public void updateMessage(int id, Message message) {
         Connection con = ConnectionUtil.getConnection();
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE message SET posted_by = ?, message_text = ?, time_posted_epoch = ? WHERE message_id = ?;");
+            PreparedStatement ps = con.prepareStatement("UPDATE message SET message_text = ? WHERE message_id = ?;");
+            ps.setString(1, message.getMessage_text());
+            ps.setInt(2, id);
             ps.executeUpdate();
-            return message;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
     
 }
