@@ -16,7 +16,8 @@ public class MessageService {
     }
 
     public Message createMessage(Message message) {
-        if(message.getMessage_text() != null && message.getMessage_text().length() > 255 && accountDAO.userExists(message.getPosted_by())){
+        System.out.println("!");
+        if(message.getMessage_text() != null && message.getMessage_text().length() < 255 && accountDAO.userExists(message.getPosted_by())){
             return messageDAO.createMessage(message);
         }
         else{

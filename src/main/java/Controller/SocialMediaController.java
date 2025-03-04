@@ -50,6 +50,15 @@ public class SocialMediaController {
     private void createMessageHandler(Context ctx) throws JsonMappingException, JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
         Message message = map.readValue(ctx.body(), Message.class);
+        System.out.println(message);
+        try {
+            Message added = messageService.createMessage(message);
+            ctx.json(added);
+            ctx.status(200);
+        } catch (Exception e) {
+            ctx.status(400);
+        }
+        /*
         Message added = messageService.createMessage(message);
         if(added != null){
             ctx.json(added);
@@ -57,7 +66,8 @@ public class SocialMediaController {
         }
         else{
             ctx.status(400);
-        }        
+        } 
+        */       
     }
 
     private void deleteMessageHandler(Context ctx){

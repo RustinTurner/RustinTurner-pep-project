@@ -51,8 +51,10 @@ public class AccountDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
+                System.out.println("!!!");
                 return true;
             }
+            System.out.println("!!!!");
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
